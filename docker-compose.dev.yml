@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+  backend:
+    command: /bin/bash /code/bin/backend-start.sh
+    env_file:
+      - ./env/backend.env
+    volumes:
+      - ./backend:/code/backend
+      - ./bin:/code/bin
+      - ./media:/code/media
+    ports:
+      - 8000:8000
+
+  broker:
+    volumes:
+      - ./docker:/code/config
+      - ./var/broker:/data
+
+  redis:
+    volumes:
+      - ./docker:/code/config
+      - ./var/sensitive:/data
+
+  celery:
+    env_file:
+      - ./env/backend.env
+    volumes:
+      - ./media:/code/media
+      - ./backend:/code/backend
+      - ./config:/code/config
+
+  nginx:
+    env_file:
+      - ./env/backend.env
+    volumes:
+      - ./docker/nginx.proxy.conf:/etc/nginx/nginx.conf:ro
+      - ./media:/code/media

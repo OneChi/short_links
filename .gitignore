@@ -1,0 +1,40 @@
+__pycache__/
+*.py[cod]
+
+# DB and env variables
+env/
+var/
+data/
+
+# Static, logs files
+backend/static/
+backend/logs/*.log.*
+*.log
+htmlcov/
+media/*
+~
+
+# IDE
+.vscode
+.idea
+
+# Temp messages for email
+tmp/
+
+frontend/.idea
+frontend/.env
+.idea
+.DS_Store
+
+backend/htmlcov/*
+backend/.coverage
+backend/media/*
+log_service/elasticsearch.env
+log_service/graylog.env
+config/prometheus.yml
+
+venv/
+*.xlsx
+data.json
+node_modules/
+*/.pytest_cache/*

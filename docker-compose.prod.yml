@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  backend:
+    command: /bin/bash /code/bin/backend-start.prod.sh
+    env_file:
+      - ./env/backend.env
+    volumes:
+      - ./media:/code/media
+
+  broker:
+    volumes:
+      - ./docker:/code/config
+      - ./var/broker:/data
+
+  redis:
+    volumes:
+      - ./docker:/code/config
+      - ./var/sensitive:/data
+
+  celery:
+    env_file:
+      - ./env/backend.env
+    volumes:
+      - ./media:/code/media
+      - ./docker:/code/docker
+
+  nginx:
+    env_file:
+      - ./env/backend.env
+    volumes:
+      - ./media:/code/media

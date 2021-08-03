@@ -1,0 +1,80 @@
+version: '3'
+services:
+    nginx:
+        restart: always
+        container_name: sl.nginx
+        build:
+            context: .
+            dockerfile: ./docker/proxy.Dockerfile
+        ports:
+            - 80:80
+            - 443:443
+        volumes:
+            - ./docker/nginx.proxy.conf:/etc/nginx/nginx.conf:ro
+            - ./certbot/conf:/etc/letsencrypt
+            - ./certbot/www:/var/www/certbot
+        networks:
+            - sl.network
+    
+    certbot:
+        container_name: sl.certbot
+        image: certbot/certbot
+        volumes:
+            - ./certbot/conf:/etc/letsencrypt
+            - ./certbot/www:/var/www/certbot
+        entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+        networks:
+            - sl.network
+
+    broker:
+        container_name: sl.broker
+        image: 'redis:alpine'
+        command: redis-server /code/config/broker.conf
+        networks:
+            - sl.network
+        restart: always
+    
+    redis:
+        container_name: sl.redis
+        image: 'redis:alpine'
+        command: redis-server /code/config/redis.conf
+        restart: always
+        networks:
+            - sl.network
+
+    backend:
+        restart: always
+        #env_file: .env
+        container_name: sl.backend
+        build:
+            context: .
+            dockerfile: ./docker/backend.Dockerfile
+        ports:
+            - 8000:8000
+        networks:
+            - sl.network
+        #command: bash -c "python manage.py makemigrations && python manage.py migrate && gunicorn app.wsgi:application --bind 0.0.0.0:8000  --chdir app/"
+
+    celery:
+        build:
+            context: .
+            dockerfile: ./docker/backend.Dockerfile
+        command: poetry run celery -A app worker -l info
+        depends_on:
+            - broker
+        networks:
+            - sl.network
+    celery-beat:
+        build:
+            context: .
+            dockerfile: ./docker/backend.Dockerfile
+        command: poetry run celery -A app beat -l info
+        depends_on:
+            - redis
+        networks:
+            - sl.network
+        
+
+networks:
+    sl.network:
+              

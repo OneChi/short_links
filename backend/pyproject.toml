@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "short_links"
+version = "0.0.1"
+description = "Server for handling short links."
+authors = ["OneChi <alexbvbv@yandex.ru>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+Django = "^3.2.6"
+pytest-django = "^4.4.0"
+pytest-cov = "^2.12.1"
+celery = "^5.1.2"
+redis = "^3.5.3"
+fakeredis = "^1.5.2"
+
+[tool.poetry.dev-dependencies]
+autopep8 = "^1.5.7"
+django-stubs = "^1.8.0"
+flake8 = "^3.9.2"
+mypy = "^0.910"
+isort = "^5.9.3"
+wemake-python-styleguide = "^0.15.3"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
