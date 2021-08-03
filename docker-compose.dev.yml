@@ -30,6 +30,15 @@ services:
       - ./backend:/code/backend
       - ./config:/code/config
 
+  celery-beat:
+    env_file:
+      - ./env/backend.env
+    volumes:
+      - ./media:/code/media
+      - ./backend:/code/backend
+      - ./config:/code/config
+
+
   nginx:
     env_file:
       - ./env/backend.env

@@ -38,3 +38,4 @@ venv/
 data.json
 node_modules/
 */.pytest_cache/*
+*/celerybeat-schedule

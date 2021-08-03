@@ -184,19 +184,12 @@ CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 
 CELERY_IMPORTS = (
-    _,
-#    'tasks.tasks',
+    'common.tasks',
 )
 
 CELERY_BEAT_SCHEDULE = {
     'hello': {
-        'task': 'tasks.tasks.hello',
+        'task': 'common.tasks.hello',
         'schedule': crontab()  # execute every minute
     },
-
-    'delete-files':{
-        'task' : 'tasks.tasks.clear_temp',
-        'schedule': crontab(hour=23,minute=59)
-    }
-
 }
