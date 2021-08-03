@@ -37,7 +37,8 @@ SECRET_KEY = 'django-insecure-j0vgkg5ga)xij-z9o8udje*(3p+$ak3xwnz)jv2)0d6hk$8eyc
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(os.environ.get('DJANGO_DEBUG', True))
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [os.getenv("ALLOWED_HOST"), os.getenv("ALLOWED_HOST_SECONDARY")]
+
 
 ADMINS = [('Alexey Vanchikov', 'alexey.vanchikov@antares-software.ru')]
 
