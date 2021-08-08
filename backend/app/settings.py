@@ -107,9 +107,13 @@ WSGI_APPLICATION = 'app.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        "ENGINE": "django.db.backends.postgresql_psycopg2", # or postgresql
+        "NAME": os.getenv("POSTGRES_DB", "short_links"),
+        "USER": os.getenv("POSTGRES_USER", "postgres"),
+        "PASSWORD": os.getenv("POSRGRES_PASSWORD", "super_secret"),
+        "HOST": os.getenv("POSTGRES_HOST", "localhost"),
+        "PORT": os.getenv("POSTGRES_PORT", 5432),
     }
 }
 
@@ -175,14 +179,19 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 
 # REDIS related settings 
-REDIS_HOST = 'redis' 
-REDIS_PORT = '6379' 
-BROKER_URL = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0' 
+REDIS_HOST = 'sl.redis' 
+REDIS_PORT = '6380' 
+REDIS_URL = f'redis://{REDIS_HOST}:{REDIS_PORT}/0'
+
+
+BROKER_HOST = 'sl.broker' 
+BROKER_PORT = '6379'
+BROKER_URL = 'redis://' + BROKER_HOST + ':' + BROKER_PORT + '/0' 
 BROKER_TRANSPORT_OPTIONS = {'visibility_timeout': 3600} 
-CELERY_RESULT_BACKEND = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'
+CELERY_RESULT_BACKEND = 'redis://' + BROKER_HOST + ':' + BROKER_PORT + '/0'
 #CELERY_RESULT_BACKEND = 'redis://redis:6379'
 
-CELERY_BROKER_URL = 'redis://redis:6379'
+CELERY_BROKER_URL = 'redis://sl.redis:6379'
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
@@ -197,3 +206,8 @@ CELERY_BEAT_SCHEDULE = {
         'schedule': crontab()  # execute every minute
     },
 }
+
+# URLS_STORAGE
+
+COUNTER_KEY = os.getenv('COUNTER_KEY','counter_key')
+COUNTER_MAX_VALUE = os.getenv('COUNTER_MAX_VALUE', '10')
