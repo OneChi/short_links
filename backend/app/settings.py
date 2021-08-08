@@ -108,11 +108,11 @@ WSGI_APPLICATION = 'app.wsgi.application'
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2", # or postgresql
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
         "NAME": os.getenv("POSTGRES_DB", "short_links"),
         "USER": os.getenv("POSTGRES_USER", "postgres"),
         "PASSWORD": os.getenv("POSRGRES_PASSWORD", "super_secret"),
-        "HOST": os.getenv("POSTGRES_HOST", "localhost"),
+        "HOST": os.getenv("POSTGRES_HOST", "sl.db"),
         "PORT": os.getenv("POSTGRES_PORT", 5432),
     }
 }
@@ -210,4 +210,4 @@ CELERY_BEAT_SCHEDULE = {
 # URLS_STORAGE
 
 COUNTER_KEY = os.getenv('COUNTER_KEY','counter_key')
-COUNTER_MAX_VALUE = os.getenv('COUNTER_MAX_VALUE', '10')
+COUNTER_MAX_VALUE : int = os.getenv('COUNTER_MAX_VALUE', 10)

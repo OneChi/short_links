@@ -3,9 +3,7 @@ version: '3'
 services:
   db:
     container_name: sl.db
-    build:
-      context: .
-      dockerfile: ./docker/db.Dockerfile
+    image: "postgres:alpine"
     env_file:
       - ./env/backend.env
     image: postgres:12.2

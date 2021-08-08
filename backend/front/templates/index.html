@@ -3,6 +3,8 @@
 <!DOCTYPE html>
 <html style="font-size: 16px;">
   <head>
+    <script class="u-script" type="text/javascript" src="{% static "js/jquery-1.9.1.min.js" %}" defer=""></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
     <meta name="keywords" content="">
@@ -10,12 +12,12 @@
     <meta name="page_type" content="np-template-header-footer-from-plugin">
     <title>Главная</title>
     <link rel="stylesheet" href="{% static "css/nicepage.css" %}" media="screen">
-<link rel="stylesheet" href="{% static "css/Главная.css" %}?124134" media="screen">
-    <script class="u-script" type="text/javascript" src="{% static "js/jquery-1.9.1.min.js" %}" defer=""></script>
+    <link rel="stylesheet" href="{% static "css/Главная.css" %}?124134" media="screen">
     <!-- <script class="u-script" type="text/javascript" src="{% static "js/script.js" %}" defer=""></script> -->
     <meta name="generator" content="Nicepage 3.22.1, nicepage.com">
     <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i">
-    
+
+
     
     <script type="application/ld+json">{
 		"@context": "http://schema.org",
@@ -42,10 +44,12 @@
                 <div class="u-layout-col">
                   <div class="u-container-style u-layout-cell u-size-60 u-layout-cell-1">
                     <div class="u-container-layout u-container-layout-1">
-                      <form action="" class="u-image u-image-round u-radius-10 u-image-1" >
+                      
+                      <div class="u-image u-image-round u-radius-10 u-image-1" >
+                        {% csrf_token %}
                         <input type="search" style="position: relative; top: 25%;width: 120%;" name="search" id="searchinput"  class="input-search" placeholder="{% trans "Вставьте ссылку" %}">
-                        <input type="submit" class="u-btn u-btn-round u-button-style u-hover-palette-1-light-2 u-palette-1-light-3 u-radius-50 u-btn-1" value="Полетели">
-                      </form>
+                        <div id="submit" class="u-btn u-btn-round u-button-style u-hover-palette-1-light-2 u-palette-1-light-3 u-radius-50 u-btn-1" >Полетели</div>
+                      </div>
                       </a>
                     </div>
                   </div>
@@ -87,7 +91,9 @@
     
     
     <footer class="u-align-center-md u-align-center-sm u-align-center-xs u-clearfix u-footer u-grey-80" id="sec-567f"><div class="u-clearfix u-sheet u-sheet-1">
-        <a href="https://nicepage.com" class="u-image u-logo u-image-1">
+      <script src="{% static "js/script.js" %}"></script>
+
+      <a href="https://nicepage.com" class="u-image u-logo u-image-1">
           <img src="{% static "img/default-logo.png" %}" class="u-logo-image u-logo-image-1">
         </a>
         <div class="u-align-left u-social-icons u-spacing-5 u-social-icons-1">
