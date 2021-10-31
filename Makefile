@@ -19,12 +19,12 @@ sync_db:
 
 reset:
 	# Reset all containers create in project.
-	docker-compose -f docker-compose.yml -f docker-compose.dev.yml -f docker-compose.db.dev.yml down --volumes --remove-orphans
+	docker-compose -f docker-compose.yml -f docker-compose.dev.yml -f down --volumes --remove-orphans
 
 # Testing.
 test_start: reset
 	# Run database for tests.
-	docker-compose -f docker-compose.yml -f docker-compose.dev.yml -f docker-compose.db.dev.yml up -d
+	docker-compose -f docker-compose.yml -f docker-compose.dev.yml -f up -d
 
 test_run:
 	# Run pytest.
@@ -32,14 +32,14 @@ test_run:
 
 test_end:
 	# Run tests.
-	docker-compose -f docker-compose.yml -f docker-compose.dev.yml -f docker-compose.db.dev.yml down --volumes
+	docker-compose -f docker-compose.yml -f docker-compose.dev.yml -f down --volumes
 
 test: test_start test_run reset test_end
 	# Run tests.
 	echo Test finished!
 
 build:
-	docker-compose -f docker-compose.yml -f docker-compose.dev.yml -f docker-compose.db.dev.yml up --build
+	docker-compose -f docker-compose.yml -f docker-compose.dev.yml -f up --build
 
 
 codestyle:

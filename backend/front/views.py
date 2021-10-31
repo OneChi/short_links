@@ -33,7 +33,7 @@ class HomePage(TemplateView):
         return context
 
     def post(self, request: HttpRequest, *args: Any, **kwargs) -> HttpResponse:
-        return HttpResponse(self.short_urls_clas.get_short_url(request.POST.get('url', '')))
+        return HttpResponse(content=self.short_urls_clas.get_short_url(request.POST.get('url', '')))
 
     def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         return render(request, 'index.html')

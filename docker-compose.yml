@@ -76,6 +76,17 @@ services:
         networks:
             - sl.network
         
+    db:
+        container_name: sl.db
+        image: "postgres:alpine"
+        env_file:
+        - ./env/backend.env
+        image: postgres:12.2
+        restart: always
+        networks:
+        - sl.network
+        ports:
+        - 5432:5432
 
 networks:
     sl.network:

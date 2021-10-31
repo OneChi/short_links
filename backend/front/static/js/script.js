@@ -137,7 +137,7 @@ function set_cookie ( name, value, exp_y, exp_m, exp_d, path, domain, secure )
       if (url){
           SendRequest("post", "/", params, (response )=>{
             console.log(response)
-
+            $("#searchinput").val(response.responseURL+response.response);
   
           })
         }
