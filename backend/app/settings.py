@@ -14,8 +14,6 @@ import os
 from pathlib import Path
 from celery.schedules import crontab
 
-from django.utils.translation import ugettext_lazy as _
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 PROJECT_ROOT = os.path.normpath(os.path.dirname(os.path.abspath(__file__)))
@@ -38,6 +36,7 @@ SECRET_KEY = 'django-insecure-j0vgkg5ga)xij-z9o8udje*(3p+$ak3xwnz)jv2)0d6hk$8eyc
 DEBUG = bool(os.environ.get('DJANGO_DEBUG', True))
 
 ALLOWED_HOSTS = [os.getenv("ALLOWED_HOST"), os.getenv("ALLOWED_HOST_SECONDARY")]
+EMAIL_LINK_BASE_URL = os.getenv("EMAIL_LINK_BASE_URL")
 
 
 ADMINS = [('Alexey Vanchikov', 'alexey.vanchikov@antares-software.ru')]
@@ -144,7 +143,7 @@ LANGUAGE_CODE = "ru"
 
 MODELTRANSLATION_DEFAULT_LANGUAGE = 'ru'
 
-LANGUAGES = [("ru", _("Russian")), ("en", _("English"))]
+LANGUAGES = [("ru", "Russian"), ("en", "English")]
 
 MODELTRANSLATION_LANGUAGES = ('ru', 'en')
 
