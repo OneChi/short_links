@@ -38,8 +38,36 @@ DEBUG = bool(os.environ.get('DJANGO_DEBUG', True))
 ALLOWED_HOSTS = [os.getenv("ALLOWED_HOST"), os.getenv("ALLOWED_HOST_SECONDARY")]
 EMAIL_LINK_BASE_URL = os.getenv("EMAIL_LINK_BASE_URL")
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': 'level: {levelname} | time: {asctime} | module: {module} - func: {funcName} - message: "{message}"',
+            'style': '{',
+        },
+        'simple': {
+            'format': 'level: {levelname} |  message: "{message}"',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple',
+        }
+    },
+    'loggers': {
+        'app_api': {
+            'handlers': ['console'],
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'DEBUG'),
+            'propagate': True,
+        }
+    }
+}
 
-ADMINS = [('Alexey Vanchikov', 'alexey.vanchikov@antares-software.ru')]
+
+ADMINS = [('Alexey Vanchikov', 'alexbvbv@yandex.ru')]
 
 # Application definition
 

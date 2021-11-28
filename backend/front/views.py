@@ -1,21 +1,12 @@
 from typing import Any
-from django.db.models.query import QuerySet
-from django.forms.models import BaseModelForm, ModelForm
 from django.http.request import HttpRequest
 from django.http.response import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
-from django.core.validators import URLValidator
 from django.core.exceptions import ValidationError
 
-from django.contrib.auth.models import User
-from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import login, authenticate
-from django.shortcuts import render, redirect
-from django.views.generic.edit import CreateView,FormView
-from django.views.generic import View, TemplateView
-from django.urls import reverse_lazy
+from django.shortcuts import render
+from django.views.generic import TemplateView
+from app.settings import ALLOWED_HOSTS
 
 NO_URL = 'we_dont_recieve_url'
 
@@ -37,14 +28,14 @@ class HomePage(TemplateView):
         return context
 
     def post(self, request: HttpRequest, *args: Any, **kwargs) -> HttpResponse:
-        validator = URLValidator()
-        requested_url = request.POST.get('url', NO_URL)
-        try:
-            validator(requested_url)
+        try:        
+            requested_url = request.POST.get('url', NO_URL)
+            if ALLOWED_HOSTS[0] in requested_url:
+                raise ValidationError('Not allowed host')
             short_link = self.short_urls_clas.get_short_url(requested_url)
             return HttpResponse(content=short_link)
         except ValidationError as ex:
-            return HttpResponse('Непозволительная ссылка!')
+            return HttpResponse(ex)
     def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         return render(request, 'index.html')
 

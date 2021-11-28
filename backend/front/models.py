@@ -16,4 +16,5 @@ class UrlsStorage(models.Model):
     url_short = models.URLField(max_length=500)
     created_at = models.DateTimeField(auto_now_add=True)
     is_deletable = models.BooleanField(default=True)
+    counter = models.PositiveBigIntegerField(default=0)
     # TODO можно сделать механизм TTL, теоретически - его можно хранить и в редисе
