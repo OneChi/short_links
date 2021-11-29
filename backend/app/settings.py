@@ -228,8 +228,8 @@ CELERY_IMPORTS = (
 )
 
 CELERY_BEAT_SCHEDULE = {
-    'hello': {
-        'task': 'common.tasks.hello',
+    'delete_task': {
+        'task': 'common.tasks.clear_outdated_urls',
         'schedule': crontab()  # execute every minute
     },
 }
